@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mujoco model="2d_lander">
+
+    <!-- global settings -->
+    <option timestep="0.01" integrator="RK4" gravity="0 -1.62 0"/>
+    <size   njmax="400" nconmax="100"/>
+    <visual><map/></visual>
+
+    <!-- ─────── world ─────── -->
+    <worldbody>
+
+        <!-- ground -->
+        <geom name="ground" type="plane" pos="0 0 0"
+              size="30 30 0.1" rgba=".3 .3 .3 1"/>
+
+        <!-- landing pads -->
+        <geom type="box" pos="-3 0.05 0" size=".4 .05 .05" rgba="0 .8 0 1"/>
+        <geom type="box" pos=" 3 0.05 0" size=".4 .05 .05" rgba=".8 0 0 1"/>
+
+        <!-- the lander -->
+        <body name="lander" pos="0 3 0">
+            <freejoint name="root"/>
+            <geom type="box" size=".25 .30 .04" density="500" rgba=".9 .6 .1 1"/>
+        </body>
+
+        <!-- camera that follows the lander -->
+        <camera name="track" mode="track" target="lander"
+                pos="0 0 8" xyaxes="1 0 0 0 1 0"/>
+
+    </worldbody>
+
+    <!-- ─────── actuators ─────── -->
+    <!-- ctrl[0] : ± torque about Z  (human) -->
+    <!-- ctrl[1] :   upward force +Y (robot) -->
+    <actuator>
+        <general name="torque_z" joint="root"
+                 gear="0 0 1 0 0 0"
+                 ctrllimited="true" ctrlrange="-20 20"/>
+
+        <general name="thrust_y" joint="root"
+                 gear="0 0 0 0 1 0"
+                 ctrllimited="true" ctrlrange="0 60"/>
+    </actuator>
+
+</mujoco>
