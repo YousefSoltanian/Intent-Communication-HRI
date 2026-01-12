@@ -1,0 +1,32 @@
+name: smoke
+
+on: [push, pull_request]
+
+jobs:
+  run-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-activate-base: false
+          activate-environment: intent_comm_nav
+          environment-file: environment.yml
+
+      - name: Install package
+        shell: bash -l {0}
+        run: |
+          pip install -e .
+
+      - name: Run navigation demo (headless)
+        shell: bash -l {0}
+        run: |
+          bash scripts/run_nav_demo.sh
+
+      - name: Verify outputs exist
+        shell: bash -l {0}
+        run: |
+          test -f src/Navigation/navigation_npace_influence_vs_human_demo.gif
+          test -f src/Navigation/navigation_npace_influence_vs_human_xy.png

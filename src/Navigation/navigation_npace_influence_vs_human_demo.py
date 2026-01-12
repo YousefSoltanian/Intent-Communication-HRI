@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 navigation_npace_influence_vs_human_demo.py
 ===========================================
