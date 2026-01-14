@@ -5,13 +5,16 @@ channels:
 dependencies:
   - python=3.10
   - pip
+  - pymunk
   - pip:
       - numpy==1.26.4
       - jax==0.4.23
       - jaxlib==0.4.23
+      - scipy==1.11.4
       - matplotlib==3.5.3
       - imageio==2.37.2
-      - scipy>=1.9
-      - ml-dtypes>=0.2.0
-      - opt-einsum>=3.3.0
+      - optax==0.2.2
+      - gymnasium==0.29.1
+      - pygame==2.5.2
+      - setuptools<81
 
